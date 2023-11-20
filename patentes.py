@@ -101,7 +101,7 @@ def threshold_image(rgb_image):
 for i, region in enumerate(regiones):
     num_connected_components = cv2.connectedComponentsWithStats(threshold_image(region), connectivity=4)[0]
 
-# Filtrar imágenes que contienen exactamente seis componentes conexas
+# Filtrar imágenes que contienen más de dos componentes conexas
 filtered_thresholded_regions = [
     threshold_image(region) for region in regiones
     if cv2.connectedComponentsWithStats(threshold_image(region), connectivity=4)[0] > 2
