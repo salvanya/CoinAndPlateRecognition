@@ -8,7 +8,6 @@ from funciones import imshow, imreconstruct, imclearborder
 # Cargamos una imagen en formato BGR, la convertimos a RGB y la mostramos.
 monedas_path = './Media/monedas.jpg'
 img = cv2.imread(monedas_path)
-imshow(img)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 # Paso 1: Conversión a escala de grises
@@ -47,11 +46,11 @@ dilated_edges = cv2.dilate(fill_img, None, iterations=2)
 # Encontrar contornos en la imagen dilatada
 contours, _ = cv2.findContours(dilated_edges.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-# Crear una imagen en blanco para el relleno
-fill_img = np.zeros_like(gray)
+# # Crear una imagen en blanco para el relleno
+# fill_img = np.zeros_like(gray)
 
-# Rellenar los contornos con color blanco
-cv2.fillPoly(fill_img, contours, color=(255, 255, 255))
+# # Rellenar los contornos con color blanco
+# cv2.fillPoly(fill_img, contours, color=(255, 255, 255))
 
 # Visualizar la imagen de relleno
 imshow(fill_img, title='Contornos Rellenos', color_img=False)
@@ -123,7 +122,6 @@ imshow(coins, title='Imagen Final Segmentada', color_img=True)
 # Visualizar el resultado final
 imshow(dice, title='Imagen Final Segmentada', color_img=True)
 
-
 # Convertir la imagen a escala de grises
 gray_segmented = cv2.cvtColor(coins, cv2.COLOR_RGB2GRAY)
 
@@ -145,9 +143,9 @@ for contour in contours:
     # Clasificar por tamaño
     if area < 80000:
         small_coins.append(contour)
-    elif 80000 <= area <= 110000:
+    elif 80000 <= area <= 100000:
         medium_coins.append(contour)
-    elif area > 110000:
+    elif area > 100000:
         large_coins.append(contour)
 
 # Crear máscaras para cada tipo de moneda
@@ -275,17 +273,17 @@ for i, dado_limpio in enumerate(dados_limpios):
 dados_finales = []
 
 # Umbral para considerar un objeto como elíptico o redondo
-umbral_elipticidad = 0.5  # Ajusta este valor según sea necesario
+umbral_elipticidad = 0.5  
 
 # Iterar sobre los dados sin ruido y eliminar objetos redondos
 for i, dado_sin_ruido in enumerate(dados_sin_ruido):
     # Encontrar contornos en el dado sin ruido
     contours, _ = cv2.findContours(dado_sin_ruido, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    # Eliminar objetos redondos y conservar los elípticos
+    # Eliminar objetos elípticos y conservar los redondo
     dado_final = dado_sin_ruido.copy()
     for contour in contours:
-        # Calcular el ajuste de elipticidad (0 para círculo, >0 para elipse)
+        # Calcular el ajuste de elipticidad
         elipticidad = cv2.fitEllipse(contour)[1][0] / cv2.fitEllipse(contour)[1][1]
 
         # Eliminar objeto si es redondo
