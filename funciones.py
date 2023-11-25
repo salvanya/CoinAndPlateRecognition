@@ -246,7 +246,7 @@ def filtrarComponentesPorRAspecto(imagen, filtered_labels, filtered_stats, centr
     # Devolver la imagen con las componentes filtradas por aspecto resaltadas
     return componentes_filtradas,filtered_centroids_aspect, filtered_labels_aspect, filtered_stats_aspect
 
-def eliminarComponentesAisladas(imagen, filtered_labels_aspect, filtered_stats_aspect, labels):
+def resaltarComponentesCercanas(imagen, filtered_labels_aspect, filtered_stats_aspect, labels):
     # Crear una imagen negra para colocar el nuevo filtrado
     componentes_filtradas = np.zeros_like(imagen)
 
@@ -351,7 +351,7 @@ def deteccionPatentes(lista_imagenes_procesadas):
         componentes_filtradas,filtered_centroids_aspect, filtered_labels_aspect, filtered_stats_aspect = stats_filtradas
 
         # Eliminar componentes aisladas -----------------------------------------------------------------------------------
-        componentes_juntas = eliminarComponentesAisladas(imagen_contornos, filtered_labels_aspect, filtered_stats_aspect, labels)
+        componentes_juntas = resaltarComponentesCercanas(imagen_contornos, filtered_labels_aspect, filtered_stats_aspect, labels)
         
         # Buscar componentes agrupadas de a 6 o más --------------------------------------------------------------------
         imagen_comp_conect = componentesDeAgrupadas(componentes_juntas)

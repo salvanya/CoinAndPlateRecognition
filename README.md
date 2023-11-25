@@ -20,7 +20,7 @@ python monedas.py
 
 ## Ejercicio 2 - Detección de Patentes
 
-Para ejecutar el código de detección de patentes, modifica el texto de la variable `patente_path` en el archivo `patentes.py` para que coincida con la ruta de la imagen del vehículo cuya patente deseas detectar. Luego, ejecuta el archivo `patentes.py`.
+Para ejecutar el código de detección de patentes sólo es necesario correr el archivo `patentes.py`. El programa irá mostrando en pantalla todos los estadíos del preprocesamiento de las fotografías, la detección de la patentes y los resultados.
 
 ```bash
 python patentes.py
